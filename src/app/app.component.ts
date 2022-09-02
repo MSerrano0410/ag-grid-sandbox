@@ -10,13 +10,12 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Movie Rating Grid';
+  title = 'Studies and Tests';
   
-  public movieColumnDefs: ColDef[] = [
-	{field: 'title'},
-	{field: 'genre'},
-	{field: 'release_year'},
-	{field: 'numeric_rating'}
+  public studyColumnDefs: ColDef[] = [
+	{field: 'test', headerName: 'Test'},
+	{field: 'study_day', headerName: 'Study Day'},
+	{field: 'unit', headerName: 'Unit'}
   ];
   
   //props are dynamic, this is how it initially loads
@@ -37,7 +36,7 @@ export class AppComponent {
   /*
 	local call for demo only
 	TODO: Implement Java web service to get
-	prod data
+	prod data from a Springboot H2 DB instance
 	TODO: Error handling for this call.
   */
   onGridReady(params: GridReadyEvent) {

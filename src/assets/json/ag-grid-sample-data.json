@@ -1,20 +1,17 @@
 [
 	{
-		"title":"Titanic",
-		"genre":"Drama",
-		"release_year":"1997",
-		"numeric_rating":"9"
+		"test": "Sample Test",
+		"study_day": "1",
+		"unit": "kg"
 	},
 	{
-		"title":"Cars",
-		"genre":"Comedy",
-		"release_year":"2006",
-		"numeric_rating":"7"
+		"test": "Sample Test 2",
+		"study_day": "2",
+		"unit": "g"
 	},
 	{
-		"title":"Avengers: Endgame",
-		"genre":"Sci-fi",
-		"release_year":"2019",
-		"numeric_rating":"9"
+		"test": "Sample Test 3",
+		"study_day": "3",
+		"unit": "km"
 	}
 ]
