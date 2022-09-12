@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
+import { NoteButtonRenderer } from "./note-button/note-button.component";
 import { Observable } from 'rxjs';
 
 @Component({
@@ -15,7 +16,8 @@ export class AppComponent {
   public studyColumnDefs: ColDef[] = [
 	{field: 'test', headerName: 'Test'},
 	{field: 'study_day', headerName: 'Study Day'},
-	{field: 'unit', headerName: 'Unit'}
+	{field: 'unit', headerName: 'Unit'},
+	{field: 'add_note', headerName: '', cellRenderer: NoteButtonRenderer}
   ];
   
   //props are dynamic, this is how it initially loads
