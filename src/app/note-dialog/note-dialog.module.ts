@@ -1,23 +1,24 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'
-import { AgGridModule } from 'ag-grid-angular';
-import { AppComponent } from './app.component';
+import { NoteDialogComponent } from './note-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
-    AppComponent
+    NoteDialogComponent
   ],
   imports: [
     BrowserModule,
 	HttpClientModule,
 	AgGridModule,
 	MatDialogModule,
-	BrowserAnimationsModule
+	BrowserAnimationsModule,
+	MatButtonModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [NoteDialogComponent]
 })
-export class AppModule { }
+export class NoteDialogModule { }

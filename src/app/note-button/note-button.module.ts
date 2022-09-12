@@ -12,4 +12,4 @@ import { NoteButton } from './note-button.component';
 	bootstrap: [NoteButton]
 })
 
-export class NoteButtonModule { }
+export class NoteDialogRendererModule { }

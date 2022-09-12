@@ -4,6 +4,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
 import { NoteButtonRenderer } from "./note-button/note-button.component";
 import { Observable } from 'rxjs';
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,13 @@ export class AppComponent {
 	{field: 'test', headerName: 'Test'},
 	{field: 'study_day', headerName: 'Study Day'},
 	{field: 'unit', headerName: 'Unit'},
-	{field: 'add_note', headerName: '', cellRenderer: NoteButtonRenderer}
+	{
+		field: 'add_note', 
+		headerName: '', 
+		cellRenderer: NoteButtonRenderer, 
+		cellRendererParams: {
+			dialog: this.dialog
+		}}
   ];
   
   //props are dynamic, this is how it initially loads
@@ -33,7 +40,9 @@ export class AppComponent {
   //this is used to access the Grid API
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
   
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private dialog: MatDialog) {
+  
+  }
   
   /*
 	local call for demo only
