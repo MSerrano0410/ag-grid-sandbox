@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { NoteButton } from './note-button.component';
+import { NoteButtonRenderer } from './note-button.component';
 
 @NgModule({
-	declarations: [NoteButton],
+	declarations: [NoteButtonRenderer],
 	imports: [
 		MatDialogModule,
 		MatButtonModule
 	],
-	bootstrap: [NoteButton]
+	bootstrap: [NoteButtonRenderer]
 })
 
 export class NoteDialogRendererModule { }
