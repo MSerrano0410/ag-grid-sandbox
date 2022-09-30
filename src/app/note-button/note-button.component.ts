@@ -28,6 +28,6 @@ export class NoteButtonRenderer implements ICellRendererAngularComp {
 	
 	openNoteDialog(): void {
 		const noteDialogRef = this.params.dialog.open(NoteDialogComponent);
-		//TODO: Add CSS to this dialog, make ngx-quill instance as content of NoteDialogComponent
+		//TODO: Find way to get ID tied to dialog instance.
 	}
 }

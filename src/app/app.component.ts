@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
-import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
+import { ColDef, GridReadyEvent } from 'ag-grid-community';
 import { NoteButtonRenderer } from "./note-button/note-button.component";
 import { Observable } from 'rxjs';
 import { MatDialog } from "@angular/material/dialog";
+import { Study } from './study';
 
 @Component({
   selector: 'app-root',
@@ -13,49 +14,66 @@ import { MatDialog } from "@angular/material/dialog";
 })
 export class AppComponent {
   title = 'Studies and Tests';
-  
-  public studyColumnDefs: ColDef[] = [
-	{field: 'test', headerName: 'Test'},
-	{field: 'study_day', headerName: 'Study Day'},
-	{field: 'unit', headerName: 'Unit'},
-	{
-		field: 'add_note', 
-		headerName: '', 
-		cellRenderer: NoteButtonRenderer, 
-		cellRendererParams: {
-			dialog: this.dialog
-		}}
-  ];
-  
-  //props are dynamic, this is how it initially loads
-  public defaultColumnAttributes: ColDef = {
-	sortable: true,
-	filter: true
-  };
-  
-  //default data that's displayed in grid.
-  //note that this allows ANY datatype; bad design
-  public rowData$!: Observable<any[]>;
-  
+  studyData: Study[] = [];
+  rowData$!: Observable<Study[]>;
+  studyColumnDefs: ColDef[] = [];
+  defaultColumnAttributes: ColDef;
+   
   //this is used to access the Grid API
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
   
   constructor(private http: HttpClient, private dialog: MatDialog) {
-  
+    this.setRowData();
+    this.defaultColumnAttributes = this.setDefaultColumnAttributes();
+  }
+
+  setRowData() {
+    this.rowData$ = this.getStudies();
+    this.rowData$.subscribe(studies => {
+    this.setStudyData(studies);
+    this.setStudyColumnDefs();
+  });
   }
   
-  /*
-	local call for demo only
-	TODO: Implement Java web service to get
-	prod data from a Springboot H2 DB instance
-	TODO: Error handling for this call.
-  */
-  onGridReady(params: GridReadyEvent) {
-	this.rowData$ = this.http.get<any[]>('assets/json/ag-grid-sample-data.json');
+  //Note: <Study>[] only defines the JSON field mapping, it does
+  //not map each JSON element to a Study object. That is done in
+  //the subscribe function
+  getStudies() {
+   return this.http.get<Study[]>('assets/json/ag-grid-sample-data.json'); 
   }
   
-  //example of a custom button function we can use
+  setStudyData(studies: Study[]) {
+    studies.forEach(study => {
+      var currentStudy: Study = new Study(study.test, study.study_day, study.unit);
+      this.studyData.push(currentStudy);
+    });
+  }
+
   clearSelection(): void {
 	this.agGrid.api.deselectAll();
+  }
+
+  setStudyColumnDefs(): void {
+    console.log(this.studyData);
+    this.studyColumnDefs = [
+      {field: 'test', headerName: 'Test'},
+      {field: 'study_day', headerName: 'Study Day'},
+      {field: 'unit', headerName: 'Unit'},
+      {
+        field: 'add_note', 
+        headerName: '', 
+        cellRenderer: NoteButtonRenderer, 
+        cellRendererParams: {
+          studyData: this.studyData,
+          dialog: this.dialog
+        }}
+      ];
+  }
+
+  setDefaultColumnAttributes(): ColDef {
+    return {
+      sortable: true,
+      filter: true
+      }
   }
 }
