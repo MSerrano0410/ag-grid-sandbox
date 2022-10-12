@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { ICellRendererAngularComp } from "ag-grid-angular";
 import { ICellRendererParams } from "ag-grid-community";
 import { NoteDialogComponent } from "../note-dialog/note-dialog.component";
-import { MatDialog } from "@angular/material/dialog";
+import { Study } from "../study";
 
 @Component({
   selector: 'note-button',
@@ -27,7 +27,13 @@ export class NoteButtonRenderer implements ICellRendererAngularComp {
 	}
 	
 	openNoteDialog(): void {
-		const noteDialogRef = this.params.dialog.open(NoteDialogComponent);
-		//TODO: Find way to get ID tied to dialog instance.
+		let currentStudy = this.getCurrentStudy(this.params.data);
+		let noteDialogRef = this.params.dialog.open(NoteDialogComponent, {
+			data: currentStudy
+		});
+	}
+
+	getCurrentStudy(data: any): any {
+		return new Study (data.test, data.study_day, data.unit);
 	}
 }

@@ -54,7 +54,6 @@ export class AppComponent {
   }
 
   setStudyColumnDefs(): void {
-    console.log(this.studyData);
     this.studyColumnDefs = [
       {field: 'test', headerName: 'Test'},
       {field: 'study_day', headerName: 'Study Day'},

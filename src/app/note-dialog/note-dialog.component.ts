@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { QUILL_CONFIG_TOKEN, QuillConfig } from 'ngx-quill';
-import { MatDialogRef } from "@angular/material/dialog";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { Study } from '../study';
 
 @Component({
 	selector: "note-dialog",
@@ -10,7 +11,9 @@ import { MatDialogRef } from "@angular/material/dialog";
 
 export class NoteDialogComponent {
 	constructor(public dialogRef: MatDialogRef<NoteDialogComponent>, 
-		@Inject(QUILL_CONFIG_TOKEN) config: QuillConfig) { 
+		@Inject(MAT_DIALOG_DATA) public data: Study,
+		@Inject(QUILL_CONFIG_TOKEN) config: QuillConfig) {
+			console.log(data);
 	}
 	
 	onClose(): void {
